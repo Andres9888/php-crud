@@ -1,8 +1,9 @@
 <?php
 
-use Doctrine\DBAL\Driver\PDOException;
+
 
 require "config.php";
+require "escape.php";
 
 if (isset($_GET['id'])) {
     echo $_GET['id'];
@@ -90,7 +91,12 @@ if (isset($_POST['submit'])) {
 
 
 
-           <input type="text" name="<?php echo $key; ?>" id="<?php echo $key ?>" value="<?php echo $value ;?>">
+           <input type="text" name="<?php echo $key; ?>" id="<?php echo $key ?>" value="<?php echo escape($value) ;?>"
+           <?php echo ($key === 'id' ? 'readonly' : null); ?>
+           
+           
+           
+           >
 
           <br>
             
@@ -102,3 +108,5 @@ if (isset($_POST['submit'])) {
     <input type="submit" name="submit" value="submit">
 
 </form>
+
+<a href="index.php">Go Back Home</a>

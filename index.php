@@ -3,6 +3,8 @@
 
  try {
      include "config.php";
+     include "escape.php";
+
 
      $connection = new PDO($dsn, $username, $password, $options);
      $sql = "SELECT * FROM users";
@@ -14,23 +16,7 @@
      echo $sql . "<br>" . $error->getMessage();
  }
 
- if (isset($_GET["id"])) {
-     try {
-         $connection = new PDO($dsn, $username, $password, $options);
-  
-         $id = $_GET["id"];
-  
-         $sql = "DELETE FROM users WHERE id = :id";
-  
-         $statement = $connection->prepare($sql);
-         $statement->bindValue(':id', $id);
-         $statement->execute();
-  
-         $success = "User successfully deleted";
-     } catch (PDOException $error) {
-         echo $sql . "<br>" . $error->getMessage();
-     }
- }
+ 
 
  if ($result && $statement->rowCount() > 0) { ?>
 
@@ -57,12 +43,12 @@
          <?php foreach ($result as $row) { ?>
          <tr>
 
-             <th><a href="edit-single.php?id=<?php  echo $row['id'];?>">Edit</a></th>
-             <td><a href="index.php?id=<?php echo $row["id"]; ?>">Delete</a></td>
-             <th><?php echo $row['lastname']; ?></th>
-             <th><?php echo $row['firstname']; ?></th>
-             <th><?php echo $row['phone']; ?></th>
-             <th><?php echo $row['email']; ?></th>
+             <th><a href="edit-single.php?id=<?php  echo escape($row['id']);?>">Edit</a></th>
+             <td><a href="delete.php?id=<?php echo escape($row["id"]); ?>">Delete</a></td>
+             <th><?php echo escape($row['lastname']); ?></th>
+             <th><?php echo escape($row['firstname']); ?></th>
+             <th><?php echo escape($row['phone']); ?></th>
+             <th><?php echo escape($row['email']); ?></th>
 
 
 
@@ -75,6 +61,8 @@
 
 
  </table>
+
+ 
 
 
 

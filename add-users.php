@@ -62,3 +62,7 @@ if (isset($_POST['submit'])) {
 
 
 </form>
+
+
+<br>
+<a href="index.php">Return to Home</a>
